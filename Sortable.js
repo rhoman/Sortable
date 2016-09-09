@@ -23,7 +23,7 @@
 	}
 })(function () {
 	"use strict";
-	
+
 	if (typeof window == "undefined" || typeof window.document == "undefined") {
 		return function () {
 			throw new Error("Sortable.js requires a window with a document");
@@ -400,11 +400,11 @@
 			}
 
 			try {
-				if (document.selection) {					
-					// Timeout neccessary for IE9					
+				if (document.selection) {
+					// Timeout neccessary for IE9
 					setTimeout(function () {
 						document.selection.empty();
-					});					
+					});
 				} else {
 					window.getSelection().removeAllRanges();
 				}
@@ -775,6 +775,10 @@
 
 					if (rootEl !== parentEl) {
 						newIndex = _index(dragEl, options.draggable);
+
+						let dragTmp = dragEl.cloneNode(true);
+						dragEl.parentNode.replaceChild(dragTmp, dragEl);
+						cloneEl.parentNode.replaceChild(dragEl, cloneEl)
 
 						if (newIndex >= 0) {
 							// drag from one list and drop into another
